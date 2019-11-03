@@ -1,10 +1,24 @@
-fn main(){
+fn get_title() -> String {
+
+}
+
+fn parse_markdown_file() {
+
+}
+
+fn print_short_banner() {
+
+}
+
+fn print_long_banner() {
+
+}
+
+fn usage() {
+
+}
+
+fn main() {
     usage();
-}
 
-fn usage(){
-    let version = env!("CARGO_PKG_VERSION");
-    println!("tinymd, a markdown compiler written by yash911");
-    println!("Version {}", version);
 }
-
