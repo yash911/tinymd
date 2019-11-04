@@ -26,10 +26,18 @@ fn parse_markdown_file(_filename: &str) {
     let mut _htag: bool = false;
     let mut _ptag: bool = false;
 
-    //It is made mutable because we want to add tokens as we parse(read go)
+    //Vector is made mutable because we want to add tokens as we parse(read go)
     let mut tokens: Vec<String> = Vec::new();
 
-    
+    //Using BufReader for storing the file into a buffer(memory)
+    let reader = BufReader::new(file);
+
+    //Looping through the reader lines and unwrapping as we go
+    for line in reader.lines() {
+
+    }
+
+
 
 
 
