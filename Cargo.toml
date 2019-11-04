@@ -1,8 +1,10 @@
 [package]
 name = "tinymd"
 version = "0.1.0"
-authors = ["Yashashav <yashashav.12345@gmail.com>"]
+authors = ["yash911 <ydk61999@gmail.com>"]
 edition = "2018"
+description = "A tiny markdown parser based on Jesse's tutorial."
+homepage = "https://github.com/yash911/tinymd"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
