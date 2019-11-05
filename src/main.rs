@@ -1,7 +1,12 @@
 use std::path::Path;
 use std::fs::File;
-use std::io::{BufRead, BufReader}; //BufReader => Let's us buffer a file into the memory
-                                   //BufRead => Let's us read those buffers line by line
+
+//BufReader => Let's us buffer a file into the memory
+//BufRead => Let's us read those buffers line by line
+use std::io::{BufRead, BufReader};
+
+use std::error::Error;
+
 fn get_title() -> String {
     let mut title = String::from(env!("CARGO_PKG_NAME"));
     title.push_str(" (v");
@@ -20,7 +25,7 @@ fn parse_markdown_file(_filename: &str) {
     //Try to open the file using the File
     //varible by initializing it with the Path variable
     let file = File::open(&input_filename)
-                .expect("[ ERROR ] Failed to open file!");
+        .expect("[ ERROR ] Failed to open file!");
 
     //Setting up state variable to keep track of header and paragraph tags
     let mut _htag: bool = false;
@@ -34,10 +39,49 @@ fn parse_markdown_file(_filename: &str) {
 
     //Looping through the reader lines and unwrapping as we go
     for line in reader.lines() {
+        let line_contents = line.unwrap().to_string();
+        let mut first_char: Vec<String> = line_contents.char().take(1).collect();
+        let mut output_line = String::new();
+
+        match first_char.pop() {
+            Some('#') => {
+                if _ptag {
+                    _ptag = false;
+                    output_line.push_str("</p>\n");
+                }
+                if _htag {
+                    _htag = false;
+                    output_line.push_str("</h1>\n");
+                }
+
+                _htag = true;
+                output_line.push_str("\n\n<h1>");
+                output_line.push_str(&line_contents[2..]);
+                // the above push method pushes the contents of the line other than the first two
+                // pythonic indeed
+                
+                //end of this match case => '#'
+            },
+            _ => {
+                if !_ptag {
+                    _ptag = true;
+                }
+            }
+
+            //closing open tags for both _htag and _ptag
+            if _htag {
+                _htag = false;
+                output_line.push_str("</h1>\n");
+            }
+            if _ptag {
+                _ptag = false;
+                output_line.push_str("</p1>\n");
+            }
+        }
 
     }
 
-
+    
 
 
 
