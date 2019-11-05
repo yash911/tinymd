@@ -1,3 +1,10 @@
+// Code for the Fifth Checkpoint
+// Tutorial: https://jesselawson.org/rust/get-started-with-rust-by-building-a-tiny-markdown-compiler/
+// 
+// The purpose of this checkpoint is to ensure that you have a complete copy
+// of the code in the tutorial up to the checkpoint. I want you to tinker and
+// explore, but to keep up with the rest of the tutorial, make sure your
+// code matches this checkpoint. 
 
 use std::path::Path;
 use std::fs::File;
@@ -25,8 +32,8 @@ fn parse_markdown_file(_filename: &str) {
 
   for line in reader.lines() {
 
-    let line_contents = line.unwrap().to_string();
-
+    let line_contents = line.unwrap();
+    
     let mut first_char: Vec<char> = line_contents.chars().take(1).collect();
 
     // Now check the first character to for headings
@@ -71,7 +78,7 @@ fn parse_markdown_file(_filename: &str) {
       s.push_str("</h1>\n");      
     }
 
-    f _ptag {
+    if _ptag {
       _ptag = false;
       s.push_str("</p>\n");
     }
@@ -82,28 +89,19 @@ fn parse_markdown_file(_filename: &str) {
     }
 
   }
-
-
-  // To test if our markdown parser works, let's just output the raw html to the console window
-  for t in &tokens {
-    println!("{}", t);
-  }
-
-  let mut output_filename = String::from(&_filename[.._filename.len() - 3]);
+  
+  // Create an output file based on the input file, minus ".md"
+  let _output_filename = &_filename[.._filename.len()-3];
+  let mut output_filename = String::from(_output_filename);
   output_filename.push_str(".html");
 
   let mut outfile = File::create(output_filename.to_string())
-      .expect("[ ERROR] could not create output file!");
-
+    .expect("[ ERROR ] Could not create output file!");
+  
   for line in &tokens {
-      outfile.write_all(line.as_bytes())
-          .expect("[ ERROR ] could not write to output file!");
+    outfile.write_all(line.as_bytes())
+      .expect("[ ERROR ] Could not write to output file!");
   }
-
-  println!("[ INFO ] Parsing Komplete! ");
-
-
-
 }
 
 fn get_title() -> String {
@@ -144,4 +142,4 @@ fn main() {
           usage();
         }
     }
-} 
+}
